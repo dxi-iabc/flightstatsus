@@ -1,0 +1,47 @@
+a:link, a:visited {
+  color:inherit;
+}
+a:hover {
+  color:inherit;
+}
+
+.row_even { background-color: gray; border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;}
+.row_odd { background-color: darkgray;border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px; }
+.row_creation { background-color: #92a8d1 ;border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;}
+
+.flightDeltaSpan {
+}
+.flightDeltaSpan svg {
+  vertical-align: bottom; /* ADDED */
+}
+.flightDeltaTransaction {
+}
+.jsonData {
+  color: #f4fb24f2
+}
+.jsonData {
+  color: #f4fb24f2
+}
+
+
+::ng-deep.ngx-json-viewer[_ngcontent-c13] .segment-type-string[_ngcontent-c13] > .segment-main[_ngcontent-c13] > .segment-value[_ngcontent-c13]  {
+ 
+    color: #f4fb24f2;
+
+  }
+
+  :host ::ng-deep .ngx-json-viewer[_ngcontent-c13]   .segment-type-string[_ngcontent-c13]    > .segment-main[_ngcontent-c13]    > .segment-value[_ngcontent-c13] {
+    color: #000; }
+
+    
+    :host ::ng-deep .ngx-json-viewer[_ngcontent-c13]   .segment-type-number[_ngcontent-c13]    > .segment-main[_ngcontent-c13]    > .segment-value[_ngcontent-c13] {
+      color: #91FF00; }

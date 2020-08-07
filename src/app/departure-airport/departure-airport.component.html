@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="col-sm-4 text-center">
+  
+    <canvas baseChart
+          [data]="pieChartDataDeparture"
+          [labels]="pieChartLabelsDeparture"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+</div>

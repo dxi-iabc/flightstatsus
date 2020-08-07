@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  
+  <button mat-button (click)="sidenav.open()" ><mat-icon>menu</mat-icon></button>
+  <span><img style="width: 8px;"  src="../assets/IBS_Software.svg" />Chain</span>  
+  <span class="example-spacer"></span>
+  
+  <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>settings</mat-icon></button>
+  
+</mat-toolbar>
+
+
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item> Settings </button>
+  <button mat-menu-item> Help </button>
+</mat-menu>
+
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav example-sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+
+    
+    
+    <mat-nav-list>
+      <a mat-list-item href="/dashboard"   [ngClass]="{'bgmenu' : clickedItem =='dashboard' }" (click)="onClick('dashboard')"   routerLinkActive="active-list-item">    <i class="material-icons icon-margin">dashboard</i>Dashboard</a>
+      <a mat-list-item href="/codesearch"  [ngClass]="{'bgmenu' : clickedItem =='searchcode' }" (click)="onClick('searchcode')" routerLinkActive="active-list-item">  <i class="material-icons">code</i>Search By Code</a>
+      <a mat-list-item href="/flight"  [ngClass]="{'bgmenu' : clickedItem =='searchfl' }" (click)="onClick('searchcode')"  (click)="onClick('searchfl')" routerLinkActive="active-list-item"> <i class="material-icons">vpn_key</i>Search By ID</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

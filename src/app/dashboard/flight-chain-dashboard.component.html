@@ -1,0 +1,241 @@
+
+
+
+<div class="grid-container">
+  <div><h1  class="card mb-4 wow fadeIn" style="margin-left:13px">Dashboard</h1></div>
+
+
+  <mat-grid-list cols="1" rowHeight="250px">
+          
+    <mat-card class="dashboard-card">
+     
+      <mat-card-content class="dashboard-card-content">
+     
+
+        <div class="row" style="margin-top: 10px">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"   style="width:20%;margin-left:10px;">
+            <app-figurecard
+              title="{{totalSheduled}}"
+              headerIcon="schedule"
+              category="Dep.Sheduled"
+              footContent="Get More Space..."
+              footerIcon="warning"
+              linearColor="linear-gradient(60deg, #ffa726, #fb8c00)"
+              boxShadow="10 4px 20px 10px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4)">
+            </app-figurecard>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="width:20%">
+            <app-figurecard
+              title="{{totalDep}}"
+              headerIcon="flight_takeoff"
+              category="Departed&Airbone"
+              footContent=""
+              footerIcon="local_offer"
+              linearColor="linear-gradient(60deg, #ef5350, #e53935)"
+              boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4)">
+            </app-figurecard>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="width:20%">
+            <app-figurecard
+              title="{{totalLanded}}"
+              headerIcon="flight_land"
+              category="Landed"
+              footContent="Last 24 Hours"
+              footerIcon="date_range"
+              linearColor="linear-gradient(60deg, #66bb6a, #43a047)"
+              boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4)">
+            </app-figurecard>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="width:20%">
+            <app-figurecard
+              title="{{this.totalFinished}}"
+              headerIcon="cancel"
+              category="Cancelled"
+              footContent="Just Updated"
+              footerIcon="update"
+              linearColor="linear-gradient(60deg, #26c6da, #00acc1)"
+              boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4)" style="width:25%">
+            </app-figurecard>
+          </div>
+        </div>
+     
+      </mat-card-content>
+    </mat-card>
+
+    </mat-grid-list>
+
+  <mat-grid-list cols="1" rowHeight="350px">
+    <mat-grid-tile  [colspan]="1" [rowspan]="1" style="overflow: auto;">
+      <mat-card class="dashboard-card" style="overflow: auto;">
+        <mat-card-header>
+          <mat-card-title>
+            Recent Flights Status Updates
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content" style="overflow: auto;">
+          <div class="mat-app-background basic-container" style="overflow: auto;">
+
+            <table mat-table [dataSource]="dataSource" style="overflow: auto; max-height: 100px;">
+            
+              
+            
+              <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+            
+              <!-- Position Column -->
+              <ng-container matColumnDef="flightKey">
+                <th mat-header-cell *matHeaderCellDef> Flight ID  </th>
+                <td mat-cell *matCellDef="let element"><a routerLink="/flight/{{element.flightKey}}">{{element.flightKey}}</a>  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="operatingAirline">
+                <th mat-header-cell *matHeaderCellDef>Operating  Airlline </th>
+                <td mat-cell *matCellDef="let element"> {{element.operatingAirline}} </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="updaterId">
+                <th mat-header-cell *matHeaderCellDef> Last Updated</th>
+                <td mat-cell *matCellDef="let element"> {{element.updaterId}} </td>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Service Type</th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="passengercount">
+                <th mat-header-cell *matHeaderCellDef> Passenger Count </th>
+                <td mat-cell *matCellDef="let element"> {{element.passengercount}} </td>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="airportrunway">
+                <th mat-header-cell *matHeaderCellDef> Airport Runway </th>
+                <td mat-cell *matCellDef="let element"> {{element.airportrunway}} </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Flight Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+            
+              <!-- Symbol Column -->
+              
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            </div>
+          </mat-card-content>
+          </mat-card>
+          </mat-grid-tile>
+          </mat-grid-list>
+
+
+
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile  [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Arrival Airport
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-arrival-airport ></app-arrival-airport>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile  [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Departure Airport
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-departure-airport></app-departure-airport>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="1" rowHeight="{{rowHeight}}" style="height:{{rowHeight}} ;">
+      <mat-grid-tile  [colspan]="1" [rowspan]="1" style="overflow: auto;">
+        <mat-card class="dashboard-card" style="overflow: auto;">
+          <mat-card-header style="margin-left:0px">
+            <mat-card-title style="text-align:left;margin-left: -12px;">
+              Status Updates Timeline
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>Expand</button>
+                <button mat-menu-item>Remove</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content" style="text-align:left; margin-left:3px;overflow: auto;">
+         <span *ngFor="let flight of flightKeyTimeSeries|keyvalue" >
+           <span  [ngStyle]="{'font-size':  '10px'}"><span class="margin" style="font-size:14px;font-weight: bold;">{{getFlightCode(flight.key)}}</span> &nbsp;&nbsp;Blockchain Flight ID :{{flight.key}}</span>
+<br/> <br/>
+
+            <mat-horizontal-stepper>
+              <ng-template matStepperIcon="edit">
+                <mat-icon>timeline</mat-icon>
+            </ng-template>
+        
+            <!-- changed step icons -->
+            <ng-template matStepperIcon="done">
+                <mat-icon>done</mat-icon>
+            </ng-template>
+
+            <span *ngFor="let key of flight.value" >
+              <mat-step  class="mat-step-label-selected mat-step-label mat-step-label-active"  completed="false" state="edit" *ngIf= "key.status != 'FlightFinished'">
+                <ng-template matStepLabel><span [ngStyle]="{'font-size':  '9px'}"><b>{{key.status}}</b></span><br /><span [ngStyle]="{'font-size':  '9px'}">{{(key.timestamp)| amTimeAgo}}</span></ng-template>
+              </mat-step>
+             <mat-step class="mat-step-label-selected mat-step-label mat-step-label-active"  completed="true" state="done" *ngIf= "key.status === 'FlightFinished'">
+                <ng-template matStepLabel><span [ngStyle]="{'font-size':  '9px'}"><b>{{key.status}}</b></span><br><span [ngStyle]="{'font-size':  '9px'}">{{(key.timestamp)| amTimeAgo}}</span></ng-template>
+             </mat-step>
+            </span>
+            </mat-horizontal-stepper>
+
+           
+          </span>
+
+
+          
+          </mat-card-content>
+        </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+
+    
+
+
+      
+</div>

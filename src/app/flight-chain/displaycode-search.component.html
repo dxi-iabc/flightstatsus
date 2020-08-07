@@ -1,0 +1,97 @@
+<div fxLayout="column">
+  <mat-card fxFlex="100%">
+      <mat-card-title>
+          Search Flight Status - By Display Identifier and IATA Code
+      </mat-card-title>
+      <mat-card-content>
+          <form novalidate>
+              <mat-form-field fxFlex="20%" hintLabel="e.g. ">
+                  <input matInput placeholder="Enter a Display Identifier" [formControl]="displayIdentifier">
+                  <mat-error *ngIf="displayIdentifier.invalid">{{getInputErrorMessage()}}</mat-error>
+              </mat-form-field> <span style="margin-left: 10px"></span>
+              <mat-form-field fxFlex="20%" hintLabel="e.g. ">
+                <input matInput placeholder="Enter IATA code" [formControl]="iatacode">
+                <mat-error *ngIf="iatacode.invalid">{{getInputErrorMessage()}}</mat-error>
+             </mat-form-field>
+
+              <button color="primary" mat-fab (click)="onClickSearch()">Search</button>
+              <mat-spinner *ngIf="loadingFlight" [diameter]="30"></mat-spinner>
+          </form>
+      </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="100%" *ngIf="error" style="background: orangered">
+      <mat-card-content>
+          {{getErrorMessage()}}
+      </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="flightHistory" fxLayout="column">
+
+
+      <mat-card fxFlex="100%" style="background: darkgrey">
+          <mat-card-title>
+              <h3>Live status</h3>
+          </mat-card-title>
+          <mat-card-content>
+              <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                  <div fxlayout="column">
+                      <p>Flight: <span
+                              *ngIf="flightLive.flightData.operatingAirline">{{flightLive.flightData.operatingAirline.name}} </span>{{flightLive.flightData.flightNumber.airlineCode}}
+                          {{flightLive.flightData.flightNumber.trackNumber}}</p>
+                      <div class="from_to">
+                          {{flightLive.flightData.departureAirport}} to {{flightLive.flightData.arrivalAirport}}
+                          (<span
+                              *ngIf="flightLive.flightData.flightStatus">{{flightLive.flightData.flightStatus}}</span>
+                          <span
+                              *ngIf="!flightLive.flightData.flightStatus">Status unknown</span>)
+                      </div>
+                      <div class="flightDeltaSpan">
+                        <svg width="25" height="25" [identiconHash]="flightLive.updaterId"></svg>
+                        <span *ngIf="!last">Updated by {{flightLive.updaterId}}, {{ flightLive.timestamp | amTimeAgo}}</span>
+                      </div>
+                      <div>
+                        <a routerLink="/transaction/{{flightLive.txId}}">TxId: {{flightLive.txId | truncate}}</a>
+                      </div>
+                  </div>
+                  <div class="jsonData">
+                    <pre >{{flightLive.flightData | json}}</pre>
+                  </div>
+              </div>
+          </mat-card-content>
+      </mat-card>
+
+    <mat-card fxFlex="100%" style="background: lightgrey">
+      <mat-card-title>
+        <h3>History</h3>
+      </mat-card-title>
+
+      <mat-card-content fxLayout="column">
+
+      <mat-card fxFlex="100%"  *ngFor="let flight of flightHistory | slice:1; let i=index; let last=last;  let o= odd; let e=even;">
+          <mat-card-title>
+            <p>
+              <span class="flightDeltaSpan">
+                <svg width="25" height="25" [identiconHash]="flight.updaterId"></svg>
+                <span *ngIf="last">Created by {{flight.updaterId}}, {{ flight.timestamp | amTimeAgo}}</span>
+                <span *ngIf="!last">Updated by {{flight.updaterId}}, {{ flight.timestamp | amTimeAgo}}</span>
+              </span>
+            </p>
+          </mat-card-title>
+          <mat-card-content  [ngClass]="{ row_odd: o, row_even: e,  row_creation: last }">
+              <div fxLayout="column"  fxLayout.xs="column" fxLayout.sm="column">
+                  <div fxLayout="column">
+                    <a routerLink="/transaction/{{flight.txId}}">
+                      <small class="md-caption">TxId: {{flight.txId | truncate}}</small>
+                    </a>
+                  </div>
+                  <div class="jsonData">
+                      <pre>{{flight.flightData | json }}</pre>
+                  </div>
+              </div>
+          </mat-card-content>
+      </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

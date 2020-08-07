@@ -1,0 +1,11 @@
+###################################
+#
+# This docker image assumes that 'ng build --prod' has already been run.
+#
+# As part of the build process
+#
+#
+FROM nginx:latest
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY dist/flight-chain-ui /usr/share/nginx/html
+

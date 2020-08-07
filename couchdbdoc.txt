@@ -1,0 +1,83 @@
+
+Dashboad Table
+function (doc) {
+  var runWay = doc.flightData.AirportFacility.IATAIdentifier +  " " +doc.flightData.AirportFacility.RunwayFacility.RunwayIdentifier;
+  var type =doc.flightData.Route.RouteInternationalDomestic;
+        if(type == "I") type ="International";
+        if(type == "D") type ="Domestic";
+        if(type == "C") type ="Common";
+ emit(doc._id, {"status": doc.flightData.AircraftMovement.DisplayedAircraftMovement.AircraftMovementStatus, "flightKey" : doc.flightKey,"operatingAirline" : doc.flightData.OperatingParties.AirlineParty.IATAIdentifier,"updaterId": doc.updaterId ,"passengercount": doc.flightData.AircraftTransport.AircraftTransportLoad.PassengerPartyCarried.TotalPassengerCount,"type": type ,"runWay" :runWay,"txId":doc.txId});
+}
+function (keys, values, rereduce) {
+     var result = new Object;
+      result.sheduled    = 0;
+      result.airbone     = 0;
+      result.landed      = 0;
+      result.cancelled   = 0;
+      result.data=values;
+      
+  if (rereduce) {
+       for(var i = 0; i < values.length; ++i){
+           
+                result.sheduled++;
+              
+       }
+    return result;
+  } else {
+    return result;
+  }
+}
+
+
+newflightview
+
+function (doc) {
+  emit(doc._id, {"flightkey":doc.flightKey,"flightData":doc.flightData,"updaterId":doc.updaterId,"txId":doc.txId});
+}
+
+
+finding count 
+
+function (doc) {
+  var type="";
+  if( doc.flightData.AircraftMovement.ArrivalOrDeparture == "D"){
+      if(doc.flightData.AircraftMovement.AircraftMovementStatus.Code == "SH")
+        type ="SH";
+  }
+   if(doc.flightData.AircraftMovement.AircraftMovementStatus.Code == "AB")
+          type ="AB";
+   if(doc.flightData.AircraftMovement.AircraftMovementStatus.Code == "LD")
+           type ="LD";
+    if(doc.flightData.AircraftMovement.AircraftMovementStatus.Code == "CX")
+          type ="CX";
+  emit([type]);
+}
+
+set reduce as _count
+http://52.66.240.219:5984/channelflight_flightchain/_design/countdesign/_view/count-view?group=true
+
+
+arrivalcount-view
+
+function (doc) {
+    var airportCode="";
+    if(doc.flightData.AircraftMovement.ArrivalOrDeparture == "A") 
+        airportCode=doc.flightData.AirportFacility.IATAIdentifier;
+     else
+       airportCode = doc.flightData.AircraftMovement.FlightOriginOrDestination;
+   emit([airportCode]);
+}
+http://15.206.90.253:5990/channelflight_flightchain/_design/countarrivalairportcode/_view/arrivalcount-view?group=true
+
+
+
+function (doc) {
+    var airportCode="";
+    if(doc.flightData.AircraftMovement.ArrivalOrDeparture == "D") 
+        airportCode=doc.flightData.AirportFacility.IATAIdentifier;
+     else
+       airportCode = doc.flightData.AircraftMovement.FlightOriginOrDestination;
+   emit([airportCode]);
+}
+
+http://52.66.240.219:5984/channelflight_flightchain/_design/departurecountsesign/_view/departurecount-view?group=true

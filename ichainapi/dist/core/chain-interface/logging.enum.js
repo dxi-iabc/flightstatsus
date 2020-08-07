@@ -1,0 +1,40 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var HlfErrors;
+(function (HlfErrors) {
+    HlfErrors["LOAD_USER_ERROR"] = "FATAL: Failed to load '%s' from local wallet.";
+    HlfErrors["NO_ENROLLED_USER"] = "User not defined, or not enrolled. Or network is down";
+    HlfErrors["BAD_TRANSACTION_PROPOSAL"] = "Transaction proposal was bad (bad count = %d)";
+    HlfErrors["TRANSACTION_TIMED_OUT"] = "The transaction has timed out: %s";
+    HlfErrors["INVALID_TRANSACTION"] = "The transaction was invalid, code: %s";
+    HlfErrors["FAILED_TO_SEND_TX"] = "Failed to send transaction and get notifications within the timeout period: %s";
+    HlfErrors["FAILED_TO_SEND_PROPOSAL"] = "Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...";
+    HlfErrors["FAILED_TO_ENROLL_ADMIN"] = "Failed to enroll admin: %s";
+    HlfErrors["ERROR_STARTING_HLF"] = "Error ocurred during connection hlf: %s";
+    HlfErrors["FAILED_TO_REGISTER"] = "Failed to register: %s";
+    HlfErrors["NO_ADMIN_USER"] = "No Admin user present";
+    HlfErrors["AUTH_FAILURES"] = "Authorization failures may be caused by having admin credentials from a previous CA instance.\n Try again after deleting the contents of the store directory ";
+})(HlfErrors = exports.HlfErrors || (exports.HlfErrors = {}));
+var HlfInfo;
+(function (HlfInfo) {
+    HlfInfo["LOAD_USER_SUCCESS"] = "Loaded user '%s' from local wallet.";
+    HlfInfo["CREATING_CLIENT"] = "Creating client and setting the wallet location...";
+    HlfInfo["CHECK_USER_ENROLLED"] = "Checking if user is enrolled...";
+    HlfInfo["USER_ENROLLED"] = "User is enrolled: %s";
+    HlfInfo["MAKE_QUERY"] = "Making query:";
+    HlfInfo["QUERY_TRANSACTIONID"] = "Query transactionId %s:";
+    HlfInfo["INIT_SUCCESS"] = "Successfully instantiated HLF Client";
+    HlfInfo["ASSIGNING_TRANSACTION_ID"] = "Assigning transaction_id: %s";
+    HlfInfo["NO_PAYLOADS_RETURNED"] = "No payloads were returned from query";
+    HlfInfo["GOOD_TRANSACTION_PROPOSAL"] = "Transaction proposal was good";
+    HlfInfo["RESPONSE_IS"] = "Response is %s";
+    HlfInfo["SUCCESFULLY_SENT_PROPOSAL"] = "Successfully sent Proposal and received ProposalResponse: Status - %s, message - \"%s\", payload - \"%s\"";
+    HlfInfo["COMMITTED_ON_PEER"] = "The transaction has been committed on peer %s";
+    HlfInfo["CHECK_TRANSACTION_PROPOSAL"] = "Checking if transaction proposal is good...";
+    HlfInfo["REGISTERING_TRANSACTION_EVENT"] = "Registering transaction event...";
+    HlfInfo["CONNECTING_EVENTHUB"] = "Connecting eventhub...";
+    HlfInfo["CONNECTED_TO_EVENTHUB"] = "Connecting eventhub...done";
+    HlfInfo["REGISTERING_TRANSACTION_EVENT_START"] = "Registering transaction event...start";
+    HlfInfo["REGISTERING_TRANSACTION_EVENT_DONE"] = "Registering transaction event...done";
+})(HlfInfo = exports.HlfInfo || (exports.HlfInfo = {}));
+//# sourceMappingURL=logging.enum.js.map

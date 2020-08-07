@@ -1,0 +1,36 @@
+version: '3.7'
+
+# Define services
+services:
+  offchain_db:
+    container_name: offchain_db
+    image: hyperledger/fabric-couchdb
+      # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
+      # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=admin
+      # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
+      # for example map it to utilize Fauxton User Interface in dev environments.
+    ports:
+      - "5990:5984"
+    networks:
+      - net_byfn
+  # App backend service
+  app-offserver3:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: . # Use an image built from the specified dockerfile in the `polling-app-server` directory.
+      dockerfile: Dockerfileoffchain
+    ports:
+      - "4444:4444" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: always
+    depends_on: 
+      - offchain_db # This service depends on mysql. Start that first.
+    networks:
+      - net_byfn
+   
+networks:
+  net_byfn:
+   external: true
+     

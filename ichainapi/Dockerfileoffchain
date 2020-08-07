@@ -1,0 +1,35 @@
+###################################
+#
+# This docker image contains node9
+#
+# As part of the build process
+#
+#
+
+FROM node:9
+
+
+
+COPY crypto-config  /usr/
+
+
+
+WORKDIR /usr/src/app
+
+
+
+COPY package*.json ./
+
+COPY . .
+
+RUN npm install --only=production
+# If you are building your code for production
+# RUN npm install --only=production
+
+# Bundle app source
+
+
+
+EXPOSE 4444
+
+CMD [ "node",  "blocklistner.js" ]

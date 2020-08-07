@@ -1,0 +1,9 @@
+{
+    "connection_file": "connection2.yaml",
+    "appAdmin": "admin",
+    "appAdminSecret": "adminpw",
+    "orgMSPID":"GatewickMSP",
+    "caName": "ca.gatewick.ibs.aero",
+    "userName": "FlightChainLGW",
+    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+}

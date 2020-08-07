@@ -1,0 +1,119 @@
+---
+name: channelflight.firstnetwork.connectionprofile
+x-type: "hlfv1"
+description: "BankPeerContract methods will be used through this profile"
+version: "1.0"
+
+channels:
+  channelflight:
+    orderers:
+      - orderer.ibs.aero
+    peers:
+      
+      peer0.gatewick.ibs.aero:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+     
+      peer1.gatewick.ibs.aero:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.birtishairways.ibs.aero:
+        endorsingPeer: true
+        ledgerQuery: true
+        
+organizations:
+  Gatewick:
+    mspid: GatewickMSP
+    peers:
+      - peer0.gatewick.ibs.aero
+      - peer1.gatewick.ibs.aero
+    certificateAuthorities:
+      - ca.gatewick.ibs.aero
+    adminPrivateKey:
+      path: ../flight-network/crypto-config/peerOrganizations/gatewick.ibs.aero/users/Admin@gatewick.ibs.aero/msp/keystore/f9833629c9923f3f4a39a4df3465582481704e01ee762c4c1f5b5983f32e3141_sk
+    signedCert:
+      path: ../flight-network/crypto-config/peerOrganizations/gatewick.ibs.aero/users/Admin@gatewick.ibs.aero/msp/signcerts/Admin@gatewick.ibs.aero-cert.pem
+  Birtishairways:
+    mspid: BirtishairwaysMSP
+    peers:
+      - peer0.birtishairways.ibs.aero
+      
+   
+  
+orderers:
+  orderer.ibs.aero:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer.ibs.aero
+    tlsCACerts:
+      path: ../flight-network/crypto-config/ordererOrganizations/ibs.aero/orderers/orderer.ibs.aero/msp/tlscacerts/tlsca.ibs.aero-cert.pem
+
+  orderer2.ibs.aero:
+    url: grpcs://localhost:8050
+    grpcOptions:
+      ssl-target-name-override: orderer2.ibs.aero
+    tlsCACerts:
+      path: ../flight-network/crypto-config/ordererOrganizations/ibs.aero/orderers/orderer2.ibs.aero/msp/tlscacerts/tlsca.ibs.aero-cert.pem
+  
+  orderer3.ibs.aero:
+    url: grpcs://localhost:9050
+    grpcOptions:
+      ssl-target-name-override: orderer3.ibs.aero
+    tlsCACerts:
+      path: ../flight-network/crypto-config/ordererOrganizations/ibs.aero/orderers/orderer3.ibs.aero/msp/tlscacerts/tlsca.ibs.aero-cert.pem
+
+  orderer4.ibs.aero:
+    url: grpcs://localhost:10050
+    grpcOptions:
+      ssl-target-name-override: orderer.ibs.aero
+    tlsCACerts:
+      path: ../flight-network/crypto-config/ordererOrganizations/ibs.aero/orderers/orderer4.ibs.aero/msp/tlscacerts/tlsca.ibs.aero-cert.pem
+
+  orderer5.ibs.aero:
+    url: grpcs://localhost:11050
+    grpcOptions:
+      ssl-target-name-override: orderer5.ibs.aero
+    tlsCACerts:
+      path: ../flight-network/crypto-config/ordererOrganizations/ibs.aero/orderers/orderer5.ibs.aero/msp/tlscacerts/tlsca.ibs.aero-cert.pem
+
+peers:
+  
+  peer0.gatewick.ibs.aero:
+    url: grpcs://localhost:9051
+    grpcOptions:
+      ssl-target-name-override: peer0.gatewick.ibs.aero
+      request-timeout: 120001
+    tlsCACerts:
+      path: ../flight-network/crypto-config/peerOrganizations/gatewick.ibs.aero/peers/peer0.gatewick.ibs.aero/msp/tlscacerts/tlsca.gatewick.ibs.aero-cert.pem
+
+  peer1.gatewick.ibs.aero:
+    url: grpcs://localhost:10051
+    grpcOptions:
+      ssl-target-name-override: peer1.gatewick.ibs.aero
+      request-timeout: 120001
+    tlsCACerts:
+      path: ../flight-network/crypto-config/peerOrganizations/gatewick.ibs.aero/peers/peer1.gatewick.ibs.aero/msp/tlscacerts/tlsca.gatewick.ibs.aero-cert.pem
+  peer0.birtishairways.ibs.aero:
+    url: grpcs://localhost:7051
+    grpcOptions:
+      ssl-target-name-override: peer0.birtishairways.ibs.aero
+      request-timeout: 120001
+    tlsCACerts:
+      path: ../flight-network/crypto-config/peerOrganizations/birtishairways.ibs.aero/peers/peer0.birtishairways.ibs.aero/msp/tlscacerts/tlsca.birtishairways.ibs.aero-cert.pem
+
+certificateAuthorities:
+  
+  ca.gatewick.ibs.aero:
+    url: https://localhost:8054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../flight-network/crypto-config/peerOrganizations/gatewick.ibs.aero/ca/ca.gatewick.ibs.aero-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+    caName: ca.gatewick.ibs.aero
